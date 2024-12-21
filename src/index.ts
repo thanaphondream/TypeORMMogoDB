@@ -64,7 +64,7 @@ myDataSource
     index.get('/usersget/:id', async (req: Request, res: Response)=>{
         try{
             const users = await myDataSource.getRepository(User).findOne({  where: { _id: new ObjectId(req.params.id)}})
-            res.json({Api: "Goode Api Show User", users})
+            res.json({Api: "Goode Api Show Users", users})
         }catch(err){
             console.log("error type", err)
             res.status(500).json({error: "errorr status 500"})
