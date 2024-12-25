@@ -43,7 +43,7 @@ export const users_Loing = async (req: Request, res: Response, next: NextFunctio
     }
 }
 
-// export const get_token_01 = (req: Request, res: Response) =>{
-//     res.json({Token: `Token True ${req.body.token_01}`})
-// }
+export const get_token_01 = (req: Request, res: Response) =>{
+    res.json({Token: `Token True ${req.body.token_01}`})
+}
 
