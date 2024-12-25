@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { myDataSource_getRepository, user_finon_chekeId, user_finon_chekeEmail } from "../_connext_OOP/Connext_";
 import jwt from "jsonwebtoken"
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs';
 
 export async function users_Update(req: Request, res: Response, next: NextFunction) {
     try{

@@ -4,7 +4,7 @@ import { myDataSource } from "./mogodb_creact/entity"
 import { User } from "./mogodb_connextsevver/app-data-source"
 import { ObjectId } from "mongodb";
 import  app  from './router/routet'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs';
 
 
 
