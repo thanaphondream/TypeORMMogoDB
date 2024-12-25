@@ -2,8 +2,9 @@ import express, {Request, Response} from "express"
 import cors from 'cors'
 import { myDataSource } from "./mogodb_creact/entity"
 import { User } from "./mogodb_connextsevver/app-data-source"
-import { ObjectId } from "typeorm"; 
+import { ObjectId } from "mongodb";
 import  app  from './router/routet'
+import bcrypt from 'bcrypt'
 
 
 
@@ -39,7 +40,8 @@ myDataSource
             if(cheke_email){
                 res.status(401).json({Error: "มีอีเมลซ้ำกันครับ"})
             }else{
-                
+                const hahsPassword = await bcrypt.hash(req.body.password, 10)
+                req.body.password = hahsPassword
                 const user_save = await users.save(req.body)
                 res.json({status: "200", user_save})
             }
@@ -63,8 +65,23 @@ myDataSource
 
     index.get('/usersget/:id', async (req: Request, res: Response)=>{
         try{
-            const users = await myDataSource.getRepository(User).findOne({  where: { _id: new ObjectId(req.params.id)}})
-            res.json({Api: "Goode Api Show Users", users})
+            const userId = req.params.id;
+            console.log("Received ID:", userId);
+    
+            if (!ObjectId.isValid(userId)) {
+                 res.status(400).json({ error: "Invalid ID format" });
+            }
+    
+            const userRepository = myDataSource.getRepository(User);
+            const user = await userRepository.findOne({
+                where: { _id: new ObjectId(userId) } 
+            });
+    
+            if (!user) {
+                 res.status(404).json({ error: "User not found" });
+            }
+    
+            res.json({ message: "User retrieved successfully", user });
         }catch(err){
             console.log("error type", err)
             res.status(500).json({error: "errorr status 500"})
@@ -73,4 +90,4 @@ myDataSource
 
     index.use('/user', app)
     
-index.listen(3000, () => console.log("Run Server Is 3000"))
+index.listen(3000, () => console.log("Run ServeGr Is 3000")) 
