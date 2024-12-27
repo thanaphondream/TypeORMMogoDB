@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { myDataSource_getRepository, user_finon_chekeId, user_finon_chekeEmail } from "../_connext_OOP/Connext_";
+import { myDataSource_getRepository, user_finon_chekeId, user_finon_chekeEmail, Save_users } from "../_connext_OOP/Connext_";
 import jwt from "jsonwebtoken"
 import bcrypt from 'bcryptjs';
 
@@ -9,8 +9,9 @@ export async function users_Update(req: Request, res: Response, next: NextFuncti
         const users_cheke: any = await user_finon_chekeId(req.params.id)
         if(!users_cheke) res.status(401).json({Erorr: "Error status 401"})
             userRepository.merge(users_cheke, req.body)
-        const users_save = await userRepository.save(users_cheke)
-        res.json({ Api: "Google Update Api ", users_save})
+            const users_save = await Save_users(users_cheke, userRepository)
+            res.json({ Api: "Google Update Api ", users_save})
+            console.log(users_cheke)
     }catch(err){
         console.error("Error status 500", err)
         res.status(500).send({Error: "Status Api 500 ", err})
@@ -43,7 +44,8 @@ export const users_Loing = async (req: Request, res: Response, next: NextFunctio
     }
 }
 
-export const get_token_01 = (req: Request, res: Response) =>{
-    res.json({Token: `Token True ${req.body.token_01}`})
+export const get_me = (req: Request, res: Response) =>{
+    const token: string = req.body.Id
+    res.json({Token: 'Token True', token})
 }
 

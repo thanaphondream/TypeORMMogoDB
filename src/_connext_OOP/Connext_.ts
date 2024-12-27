@@ -15,3 +15,11 @@ export const user_finon_chekeEmail = async (email: string, userRepository: any) 
     return userRepository.findOne({ where: {email: String(email)}})
     
 }
+
+export const Save_users = (users?: string, userRepository?: any) => {
+    return userRepository.save(users)
+}
+
+export const Delete_users = (users?: string, userRepository?: any) => {
+    return userRepository.delete(users)
+}

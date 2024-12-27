@@ -1,10 +1,10 @@
 import express, {Request, Response} from "express"
 import cors from 'cors'
 import { myDataSource } from "./mogodb_creact/entity"
-import { User } from "./mogodb_connextsevver/app-data-source"
 import { ObjectId } from "mongodb";
 import  app  from './router/routet'
 import bcrypt from 'bcryptjs';
+import { Save_users, myDataSource_getRepository, Delete_users } from "./_connext_OOP/Connext_";
 
 
 
@@ -25,7 +25,7 @@ myDataSource
 
     index.get('/users', async (req: Request, res: Response) =>{
         try{
-            const users = await myDataSource.getRepository(User).find()
+            const users = await myDataSource_getRepository().find()
             res.json(users)
         }catch(err){
             console.log("error type", err)
@@ -35,14 +35,14 @@ myDataSource
 
     index.post('/users', async (req: Request, res: Response) =>{
         try{
-            const users = await myDataSource.getRepository(User)
+            const users = await myDataSource_getRepository()
             const cheke_email = await users.findOne({ where: {email: String( req.body.email)}})
             if(cheke_email){
                 res.status(401).json({Error: "มีอีเมลซ้ำกันครับ"})
             }else{
                 const hahsPassword = await bcrypt.hash(req.body.password, 10)
                 req.body.password = hahsPassword
-                const user_save = await users.save(req.body)
+                const user_save = await Save_users(req.body, users)
                 res.json({status: "200", user_save})
             }
         }catch(err){
@@ -54,8 +54,8 @@ myDataSource
 
     index.delete('/users/:id', async (req: Request, res: Response)=>{
         try{
-            const users = await myDataSource.getRepository(User)
-            const user_delete = await users.delete(req.params.id)
+            const users = await myDataSource_getRepository()
+            const user_delete = await Delete_users(req.params.id, users)
             res.json({status : '200', data: 'Delete data goodle', user_delete})
         }catch(err){
             console.log("error type", err)
@@ -72,13 +72,13 @@ myDataSource
                  res.status(400).json({ error: "Invalid ID format" });
             }
     
-            const userRepository = myDataSource.getRepository(User);
+            const userRepository = await myDataSource_getRepository()
             const user = await userRepository.findOne({
                 where: { _id: new ObjectId(userId) } 
             });
     
             if (!user) {
-                 res.status(404).json({ error: "User not found" });
+                res.status(404).json({ error: "User not found" });
             }
     
             res.json({ message: "User retrieved successfully", user });
