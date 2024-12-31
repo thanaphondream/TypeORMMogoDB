@@ -1,4 +1,5 @@
-import { Entity, ObjectId, ObjectIdColumn, Column } from "typeorm"
+import { Entity, ObjectId, ObjectIdColumn, Column, OneToMany  } from "typeorm"
+import { Product } from "./app-data-maintod"
 
 @Entity()
 export class User {
@@ -13,4 +14,7 @@ export class User {
 
     @Column()
     password?: string
+
+    @OneToMany(() => Product, (product) => product.owner)
+    products?: Product[]; 
 }

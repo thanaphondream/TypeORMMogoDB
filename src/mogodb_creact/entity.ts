@@ -1,6 +1,7 @@
 import { DataSource } from "typeorm"
 import { User } from "../mogodb_connextsevver/app-data-source"
 import dotenv from 'dotenv'
+import { Product } from "../mogodb_connextsevver/app-data-maintod"
 dotenv.config()
 
 export const myDataSource = new DataSource({
@@ -13,5 +14,5 @@ export const myDataSource = new DataSource({
     useUnifiedTopology: true,
     synchronize: true,
     logging: true,
-    entities: [User],
+    entities: [User, Product],
 })
