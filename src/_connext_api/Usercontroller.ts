@@ -7,13 +7,13 @@ import { Request, Response, NextFunction } from "express";
 export class Usercontroller {
     private userRepository = myDataSource.getRepository(User);
 
-    // Method สำหรับดึงข้อมูลผู้ใช้ทั้งหมด
     async all(req: Request, res: Response, next: NextFunction) {
         try {
             const users = await this.userRepository.find();
+            console.log("Hello world")
             res.json(users);
         } catch (error) {
-            next(error); // ส่ง error ไปยัง middleware
+            next(error);
         }
     }
 }

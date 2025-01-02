@@ -16,5 +16,5 @@ export class Product {
     description?: string;
 
     @ManyToOne(() => User, (user) => user.products)
-    owner?: User; // เชื่อมกับ User
+    owner?: User; 
 }

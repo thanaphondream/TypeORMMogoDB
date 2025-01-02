@@ -51,4 +51,16 @@ export const get_me = (req: Request, res: Response) =>{
 }
 
 
+export const get_fin = async (req: Request, res: Response, next: NextFunction) => {
+ try{
+    const userRepository = await myDataSource_getRepository()
+    const users = await userRepository.find()
+    res.json(users)
+ }catch(err){
+    console.log(err)
+    res.status(500).json({ Error: "Error type 400", err})
+ }
+}
+
+
 

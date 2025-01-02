@@ -2,11 +2,9 @@ import express, {Request, Response} from "express"
 import cors from 'cors'
 import { myDataSource } from "./mogodb_creact/entity"
 import { ObjectId } from "mongodb";
-import  app  from './router/routet'
+import  app  from './Router/Routet'
 import bcrypt from 'bcryptjs';
 import { Save_users, myDataSource_getRepository, Delete_users } from "./_connext_OOP/Connext_";
-
-
 
 const index = express()
 
@@ -87,7 +85,7 @@ myDataSource
             res.status(500).json({error: "errorr status 500"})
         }
     })
-
+    
     index.use('/user', app)
     
 index.listen(3000, () => console.log("Run ServeGr Is 3000")) 
