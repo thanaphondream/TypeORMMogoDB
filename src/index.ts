@@ -2,9 +2,9 @@ import express, {Request, Response} from "express"
 import cors from 'cors'
 import { myDataSource } from "./mogodb_creact/entity"
 import { ObjectId } from "mongodb";
-import  app  from './Router/Routet'
 import bcrypt from 'bcryptjs';
 import { Save_users, myDataSource_getRepository, Delete_users } from "./_connext_OOP/Connext_";
+import app from "./router/routet";
 
 const index = express()
 
