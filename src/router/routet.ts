@@ -54,7 +54,6 @@ app.get("/all", (req, res, next) => userController.all(req, res, next));
  *                   email:
  *                     type: string
  */
-
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 export default app
