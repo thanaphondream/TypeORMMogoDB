@@ -31,6 +31,7 @@
     "mongodb": "^5.9.2",
     "reflect-metadata": "^0.2.2",
     "swagger-jsdoc": "^6.2.8",
+    "swagger-ui": "^5.18.2",
     "swagger-ui-express": "^5.0.1",
     "typeorm": "^0.3.20"
   }
