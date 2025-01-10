@@ -5,6 +5,8 @@ import { ObjectId } from "mongodb";
 import bcrypt from 'bcryptjs';
 import { Save_users, myDataSource_getRepository, Delete_users } from "./_connext_OOP/Connext_";
 import app from "./router/routet";
+import tree from "./router/RouteTree";
+
 
 const index = express()
 
@@ -87,5 +89,6 @@ myDataSource
     })
     
     index.use('/user', app)
+    index.use('/tree', tree)
     
 index.listen(3000, () => console.log("Run ServeGr Is 3000")) 
